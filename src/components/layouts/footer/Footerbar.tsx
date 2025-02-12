@@ -1,6 +1,7 @@
 'use client'
 import { useFooterStore } from '@/modules/store/footer.store'
 import { MailOutlined, PhoneOutlined } from '@ant-design/icons'
+import Image from 'next/image'
 import { FC } from 'react'
 
 const Footerbar: FC = () => {
@@ -23,7 +24,12 @@ const Footerbar: FC = () => {
                 </div>
                 <div>
                     <a href={`${footerDetail.lineAddress}`} target="_blank">
-                        Line
+                        <Image
+                            src="/icon/line-icon.svg"
+                            alt="line-icon"
+                            width={30}
+                            height={30}
+                        />
                     </a>
                 </div>
             </div>
