@@ -1,3 +1,9 @@
-export default function CreateContact() {
-    return <div>Create Contact</div>
+import ContactForm from '@/components/contact/ContactForm'
+
+export default function CreateContactPage() {
+    return (
+        <div>
+            <ContactForm />
+        </div>
+    )
 }
