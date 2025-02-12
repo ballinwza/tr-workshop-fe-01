@@ -16,7 +16,7 @@ const Headerbar: FC = () => {
 
     return (
         <Fragment>
-            <div className="flex justify-between items-center bg-blue-400">
+            <div className="flex justify-between items-center bg-light-100 text-dark-500">
                 <div>
                     <Link href="/">
                         <Image
