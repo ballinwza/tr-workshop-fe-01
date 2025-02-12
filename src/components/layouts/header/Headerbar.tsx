@@ -15,7 +15,7 @@ const Headerbar: FC = () => {
     const { headerDetail, profileImage, setProfileImage } = useHeaderStore(
         (state) => state,
     )
-    const [isModalOpen, setIsModalOpen] = useState(false)
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     return (
         <Fragment>
