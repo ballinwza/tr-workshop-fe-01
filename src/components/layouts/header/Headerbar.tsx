@@ -2,6 +2,8 @@
 import EditProfileImageModal from '@/components/modal/EditProfileImage'
 import { useHeaderStore } from '@/modules/store/header.store'
 import { useLanguageStore } from '@/modules/store/language.store'
+import { useSiderStore } from '@/modules/store/sidebar.store'
+import { MenuOutlined } from '@ant-design/icons'
 
 import Image from 'next/image'
 import Link from 'next/link'
@@ -9,6 +11,7 @@ import { FC, Fragment, useState } from 'react'
 
 const Headerbar: FC = () => {
     const { setCurrentLang } = useLanguageStore((state) => state)
+    const { toggleIsVisible } = useSiderStore((state) => state)
     const { headerDetail, profileImage, setProfileImage } = useHeaderStore(
         (state) => state,
     )
@@ -40,6 +43,9 @@ const Headerbar: FC = () => {
                             width={56}
                             height={56}
                         />
+                    </div>
+                    <div className="cursor-pointer" onClick={toggleIsVisible}>
+                        <MenuOutlined />
                     </div>
                 </div>
             </div>
