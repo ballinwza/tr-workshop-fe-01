@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { IContact, IHeaderContactColumns } from '../domain/contact.model'
 import { LanguageEnum } from '@/shared/enums/language.enum'
 
-interface contactState {
+interface contactListState {
     page: number
     setPage: (page: number) => void
     pageSize: number
@@ -157,7 +157,7 @@ const mockHeaderColumns: {
     },
 }
 
-export const useContactStore = create<contactState>((set, get) => ({
+export const useContactListStore = create<contactListState>((set, get) => ({
     page: 1,
     setPage: (page: number) => {
         set(() => ({

@@ -3,7 +3,7 @@ import { useHeaderStore } from './header.store'
 import { LanguageEnum } from '@/shared/enums/language.enum'
 import { useFooterStore } from './footer.store'
 import { useSiderStore } from './sidebar.store'
-import { useContactStore } from './contact.store'
+import { useContactListStore } from './contactList.store'
 
 interface languageState {
     currentLang: LanguageEnum
@@ -26,6 +26,6 @@ export const useLanguageStore = create<languageState>((set, get) => ({
         useHeaderStore.getState().setHeaderDetailLang(get().currentLang)
         useFooterStore.getState().setFooterDetailLang(get().currentLang)
         useSiderStore.getState().setSiderDetailLang(get().currentLang)
-        useContactStore.getState().setHeaderColumnsLang(get().currentLang)
+        useContactListStore.getState().setHeaderColumnsLang(get().currentLang)
     },
 }))

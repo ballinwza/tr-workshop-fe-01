@@ -2,7 +2,7 @@
 import { Button, message, Popconfirm, Table } from 'antd'
 import { FC } from 'react'
 import { ColumnsType } from 'antd/es/table'
-import { useContactStore } from '@/modules/store/contact.store'
+import { useContactListStore } from '@/modules/store/contactList.store'
 import { IContact } from '@/modules/domain/contact.model'
 import { DeleteOutlined } from '@ant-design/icons'
 
@@ -15,7 +15,7 @@ const ContactList: FC = () => {
         setPage,
         deleteContactByKey,
         headerColumnsLang,
-    } = useContactStore((state) => state)
+    } = useContactListStore((state) => state)
 
     const columns: ColumnsType<IContact> = [
         {
