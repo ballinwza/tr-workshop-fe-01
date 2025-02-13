@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { IContact, IHeaderContactColumns } from '../domain/contact.model'
 import { LanguageEnum } from '@/shared/enums/language.enum'
+import { shuffle } from 'radash'
 
 interface contactListState {
     page: number
@@ -8,14 +9,17 @@ interface contactListState {
     pageSize: number
     setPageSize: (pageSize: number) => void
     contactDetail: IContact[]
+    setContactDetailMax100: () => void
     createContact: (formValue: IContact) => void
     deleteContactByKey: (formValue: IContact) => void
-    setMaximumList: (newContactDetail: IContact[]) => void
     headerColumnsLang: IHeaderContactColumns
     setHeaderColumnsLang: (lang: LanguageEnum) => void
+    searchValue: string
+    setSearchValue: (searchValue: string) => void
+    onSearching: () => void
 }
 
-const mockContactList: IContact[] = [
+let mockContactList: IContact[] = [
     {
         key: '11',
         fullName: 'Edward D. George',
@@ -122,6 +126,7 @@ const mockContactList: IContact[] = [
         age: 44,
     },
 ]
+var mockContactListWithRandom: IContact[] = shuffle(mockContactList)
 
 const mockHeaderColumns: {
     en: IHeaderContactColumns
@@ -170,32 +175,53 @@ export const useContactListStore = create<contactListState>((set, get) => ({
             pageSize,
         }))
     },
-    contactDetail: mockContactList,
-    setMaximumList: (newContactDetail: IContact[]) => {
-        if (newContactDetail.length > 100) {
-            set(() => ({
-                contactDetail: get().contactDetail,
-            }))
-        } else {
-            set(() => ({
-                contactDetail: newContactDetail,
-            }))
-        }
+    contactDetail: [],
+    setContactDetailMax100: () => {
+        set(() => ({
+            contactDetail: mockContactListWithRandom.slice(0, 99),
+        }))
     },
     createContact: (formValue: IContact) => {
-        get().setMaximumList([...get().contactDetail, formValue])
+        if (mockContactListWithRandom.length < 100) {
+            mockContactListWithRandom.push(formValue)
+            get().setContactDetailMax100()
+        }
     },
     deleteContactByKey: (formValue: IContact) => {
-        set(() => ({
-            contactDetail: get().contactDetail.filter(
-                (item) => item.key !== formValue.key,
-            ),
-        }))
+        mockContactListWithRandom = mockContactListWithRandom.filter(
+            (item) => item.key !== formValue.key,
+        )
+        get().setContactDetailMax100()
+        get().setSearchValue('')
     },
     headerColumnsLang: mockHeaderColumns.en,
     setHeaderColumnsLang: (lang: LanguageEnum) => {
         set(() => ({
             headerColumnsLang: mockHeaderColumns[lang],
         }))
+    },
+    searchValue: '',
+    setSearchValue: (searchValue: string) => {
+        set(() => ({
+            searchValue,
+        }))
+        get().onSearching()
+    },
+    onSearching: () => {
+        if (get().searchValue === '') {
+            get().setPage(1)
+            get().setContactDetailMax100()
+        }
+
+        if (get().searchValue.length >= 3) {
+            get().setPage(1)
+            set(() => ({
+                contactDetail: mockContactListWithRandom.filter((item) =>
+                    item.fullName
+                        .toLowerCase()
+                        .includes(get().searchValue.toLowerCase()),
+                ),
+            }))
+        }
     },
 }))
