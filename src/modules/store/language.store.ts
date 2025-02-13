@@ -4,6 +4,7 @@ import { LanguageEnum } from '@/shared/enums/language.enum'
 import { useFooterStore } from './footer.store'
 import { useSiderStore } from './sidebar.store'
 import { useContactListStore } from './contactList.store'
+import { useContactFormStore } from './contactForm.store'
 
 interface languageState {
     currentLang: LanguageEnum
@@ -27,5 +28,6 @@ export const useLanguageStore = create<languageState>((set, get) => ({
         useFooterStore.getState().setFooterDetailLang(get().currentLang)
         useSiderStore.getState().setSiderDetailLang(get().currentLang)
         useContactListStore.getState().setHeaderColumnsLang(get().currentLang)
+        useContactFormStore.getState().setFormLang(get().currentLang)
     },
 }))
