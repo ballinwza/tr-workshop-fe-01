@@ -18,3 +18,17 @@ export interface IHeaderContactColumns {
         cancelTextBtn: string
     }
 }
+
+export interface IContactFormDetail {
+    name: string
+    nameValidateTxt: string
+    age: string
+    ageValidateTxt: string
+    submitTxt: string
+    modalTitle: string
+    modalDesc: string
+    modalOkTxt: string
+    modalCancelTxt: string
+    errorMessage: string
+    successMessage: string
+}
