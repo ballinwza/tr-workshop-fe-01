@@ -116,7 +116,7 @@ const ContactList: FC = () => {
                 scroll={{ x: '100%', y: '60vh' }}
                 pagination={{
                     defaultCurrent: 1,
-                    showSizeChanger: true,
+                    showSizeChanger: false,
                     pageSize,
                     current: page,
                     onChange(page, pageSize) {
