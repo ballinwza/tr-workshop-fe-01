@@ -6,6 +6,7 @@ import { Modal, Upload } from 'antd'
 import { InboxOutlined } from '@ant-design/icons'
 
 import Image from 'next/image'
+import { useLanguageStore } from '@/modules/store/language.store'
 const { Dragger } = Upload
 
 interface Props {
@@ -22,6 +23,7 @@ const EditProfileImageModal: FC<Props> = ({
     setImageUrl,
 }: Props) => {
     const [blobImgUrl, setBlobImgUrl] = useState<string | null>()
+    const { currentLang } = useLanguageStore((state) => state)
 
     const handleOk = () => {
         setIsModalOpen(false)
@@ -55,10 +57,16 @@ const EditProfileImageModal: FC<Props> = ({
 
     return (
         <Modal
-            title="Upload Profile Image"
+            title={
+                currentLang === 'en'
+                    ? 'Changing Profile Picture'
+                    : 'เปลี่ยนรูปภาพโปรไฟล์'
+            }
             open={isModalOpen}
             onOk={handleOk}
             onCancel={handleCancel}
+            okText={currentLang === 'en' ? 'OK' : 'ตกลง'}
+            cancelText={currentLang === 'en' ? 'Cancel' : 'ยกเลิก'}
         >
             <Dragger {...props}>
                 <div className="flex justify-center items-center">
@@ -75,12 +83,14 @@ const EditProfileImageModal: FC<Props> = ({
                                 <InboxOutlined />
                             </p>
                             <p className="ant-upload-text">
-                                Click or drag file to this area to upload
+                                {currentLang === 'en'
+                                    ? 'Click or drag file to this area to change picture'
+                                    : 'คลิก หรือ ลากรูปภาพใส่บริเวณ เพื่อเปลี่ยนรูปภาพ'}
                             </p>
                             <p className="ant-upload-hint">
-                                Support for a single or bulk upload. Strictly
-                                prohibited from uploading company data or other
-                                banned files.
+                                {currentLang === 'en'
+                                    ? 'Support for a single or bulk changing picture.'
+                                    : 'รองรับการเปลี่ยนรูปภาพทีละ 1 รูปเท่านั้น'}
                             </p>
                         </div>
                     )}

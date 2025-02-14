@@ -2,7 +2,7 @@ import { create } from 'zustand'
 import { IContact, IHeaderContactColumns } from '../domain/contact.model'
 import { LanguageEnum } from '@/shared/enums/language.enum'
 import { shuffle } from 'radash'
-
+import { v4 as uuid4 } from 'uuid'
 interface contactListState {
     page: number
     setPage: (page: number) => void
@@ -21,112 +21,122 @@ interface contactListState {
 
 let mockContactList: IContact[] = [
     {
-        key: '11',
+        key: uuid4(),
         fullName: 'Edward D. George',
         age: 42,
     },
     {
-        key: '12',
+        key: uuid4(),
         fullName: 'Kenneth L. Matas',
         age: 53,
     },
     {
-        key: '13',
+        key: uuid4(),
         fullName: 'Albert N. Cooper',
         age: 32,
     },
     {
-        key: '14',
+        key: uuid4(),
         fullName: 'Max E. Hans',
         age: 58,
     },
     {
-        key: '15',
+        key: uuid4(),
         fullName: 'Heather G. Day',
         age: 27,
     },
     {
-        key: '16',
+        key: uuid4(),
         fullName: 'Laura L. Williams',
         age: 44,
     },
     {
-        key: '17',
+        key: uuid4(),
         fullName: 'Sharon D. Metcalf',
         age: 62,
     },
     {
-        key: '18',
+        key: uuid4(),
         fullName: 'Thomas M. Rosenthal',
         age: 28,
     },
     {
-        key: '19',
+        key: uuid4(),
         fullName: 'Sharon T. Davidson',
         age: 55,
     },
     {
-        key: '21',
+        key: uuid4(),
         fullName: 'คเชนทร์ชาติ จริงบำรุง',
         age: 77,
     },
     {
-        key: '22',
+        key: uuid4(),
         fullName: 'Milena Bodrova',
         age: 79,
     },
     {
-        key: '23',
+        key: uuid4(),
         fullName: 'สุบุษบง ชาวไร่อ้อย',
         age: 76,
     },
     {
-        key: '24',
+        key: uuid4(),
         fullName: 'Michael Fedorov',
         age: 71,
     },
     {
-        key: '25',
+        key: uuid4(),
         fullName: 'ดารินทร์ จินตรารักษ์',
         age: 83,
     },
     {
-        key: '26',
+        key: uuid4(),
         fullName: 'สุปถัมย์ สุขจงรัก',
         age: 71,
     },
     {
-        key: '27',
+        key: uuid4(),
         fullName: '有薗 康平',
         age: 78,
     },
     {
-        key: '28',
+        key: uuid4(),
         fullName: 'Tafutoteka',
         age: 55,
     },
     {
-        key: '29',
+        key: uuid4(),
         fullName: '阿河 優香',
         age: 73,
     },
     {
-        key: '30',
+        key: uuid4(),
         fullName: 'Zumokato',
         age: 55,
     },
     {
-        key: '31',
-        fullName: 'Ortensia Milanesi',
-        age: 68,
-    },
-    {
-        key: '32',
+        key: uuid4(),
         fullName: 'John Wick',
         age: 44,
     },
 ]
-var mockContactListWithRandom: IContact[] = shuffle(mockContactList)
+
+const assignNewKey = (uniq: number) =>
+    mockContactList.map((item) => {
+        item.key = uuid4() + uniq
+        return {
+            ...item,
+        }
+    })
+
+var mockContactListWithRandom: IContact[] = [
+    ...shuffle(assignNewKey(1)),
+    ...shuffle(assignNewKey(2)),
+    ...shuffle(assignNewKey(3)),
+    ...shuffle(assignNewKey(4)),
+    ...shuffle(assignNewKey(5)),
+]
 
 const mockHeaderColumns: {
     en: IHeaderContactColumns
@@ -178,7 +188,7 @@ export const useContactListStore = create<contactListState>((set, get) => ({
     contactDetail: [],
     setContactDetailMax100: () => {
         set(() => ({
-            contactDetail: mockContactListWithRandom.slice(0, 99),
+            contactDetail: mockContactListWithRandom.slice(0, 100),
         }))
     },
     createContact: (formValue: IContact) => {

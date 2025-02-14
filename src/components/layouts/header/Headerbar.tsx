@@ -3,6 +3,7 @@ import EditProfileImageModal from '@/components/modal/EditProfileImage'
 import { useHeaderStore } from '@/modules/store/header.store'
 import { useLanguageStore } from '@/modules/store/language.store'
 import { useSiderStore } from '@/modules/store/sidebar.store'
+import { LanguageEnum } from '@/shared/enums/language.enum'
 import { MenuOutlined } from '@ant-design/icons'
 
 import Image from 'next/image'
@@ -19,7 +20,7 @@ const Headerbar: FC = () => {
 
     return (
         <Fragment>
-            <div className="flex justify-between items-center bg-light-100 text-dark-500">
+            <div className="flex justify-between items-center bg-light-100 text-dark-500 px-10 py-2.5">
                 <div>
                     <Link href="/">
                         <Image
@@ -31,10 +32,24 @@ const Headerbar: FC = () => {
                     </Link>
                 </div>
                 <div className="flex gap-8 items-center">
-                    <div onClick={setCurrentLang}>Change Lang</div>
+                    <div className="flex gap-2">
+                        <div
+                            className="cursor-pointer"
+                            onClick={() => setCurrentLang(LanguageEnum.en)}
+                        >
+                            EN
+                        </div>
+                        <div>/</div>
+                        <div
+                            className="cursor-pointer"
+                            onClick={() => setCurrentLang(LanguageEnum.th)}
+                        >
+                            TH
+                        </div>
+                    </div>
                     <div>{headerDetail?.fullname}</div>
                     <div
-                        className="aspect-square h-14 rounded-full overflow-hidden flex items-center justify-center"
+                        className="aspect-square cursor-pointer h-14 rounded-full overflow-hidden flex items-center justify-center"
                         onClick={() => setIsModalOpen(true)}
                     >
                         <Image
@@ -45,7 +60,7 @@ const Headerbar: FC = () => {
                         />
                     </div>
                     <div className="cursor-pointer" onClick={toggleIsVisible}>
-                        <MenuOutlined />
+                        <MenuOutlined className="text-[28px]" />
                     </div>
                 </div>
             </div>

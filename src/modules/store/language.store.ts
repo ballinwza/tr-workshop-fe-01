@@ -8,13 +8,20 @@ import { useContactFormStore } from './contactForm.store'
 
 interface languageState {
     currentLang: LanguageEnum
-    setCurrentLang: () => void
+    setCurrentLang: (lang: LanguageEnum) => void
+    toggleCurrentLang: () => void
     setLanguage: () => void
 }
 
 export const useLanguageStore = create<languageState>((set, get) => ({
     currentLang: LanguageEnum.en,
-    setCurrentLang: () => {
+    setCurrentLang: (lang: LanguageEnum) => {
+        set(() => ({
+            currentLang: lang,
+        }))
+        get().setLanguage()
+    },
+    toggleCurrentLang: () => {
         set(() => ({
             currentLang:
                 get().currentLang === LanguageEnum.en

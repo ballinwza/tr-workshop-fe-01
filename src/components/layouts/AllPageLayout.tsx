@@ -14,7 +14,12 @@ const AllPageLayout: FC<Props> = ({ children }: Props) => {
             <Headerbar />
             <div className="flex flex-grow">
                 <Sidebar />
-                <div className="flex-grow p-8 bg-violet-300">{children}</div>
+                <div
+                    className="flex-grow p-8"
+                    style={{ backgroundColor: '#e8dac6' }}
+                >
+                    {children}
+                </div>
             </div>
             <Footerbar />
         </div>

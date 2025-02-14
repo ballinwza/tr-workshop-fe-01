@@ -89,7 +89,7 @@ const ContactList: FC = () => {
     }, [])
 
     return (
-        <div className="w-full md:w-full">
+        <div className="w-full">
             <div className="flex justify-end gap-6 mb-4">
                 <Button type="primary" onClick={() => setSearchValue('')}>
                     {currentLang === 'en' ? 'Clear' : 'ล้าง'}
@@ -113,7 +113,7 @@ const ContactList: FC = () => {
                 rowKey={'key'}
                 dataSource={contactDetail}
                 columns={columns}
-                scroll={{ x: '100%', y: '60vh' }}
+                scroll={{ x: '100%', y: '50vh' }}
                 pagination={{
                     defaultCurrent: 1,
                     showSizeChanger: false,
