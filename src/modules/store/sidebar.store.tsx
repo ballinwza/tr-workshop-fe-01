@@ -76,7 +76,7 @@ const mockSiderDetail: { en: MenuItem[]; th: MenuItem[] } = {
 
 export const useSiderStore = create<siderState>((set, get) => ({
     currentPath: '/',
-    isVisible: true,
+    isVisible: false,
     toggleIsVisible: () => {
         set(() => ({
             isVisible: !get().isVisible,

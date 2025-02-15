@@ -8,7 +8,7 @@ const Footerbar: FC = () => {
     const { footerDetail } = useFooterStore((state) => state)
 
     return (
-        <div className="flex flex-col items-center justify-center gap-4 py-6 bg-light-100 text-dark-500">
+        <div className="flex flex-col items-center justify-center gap-4 py-6 bg-light-100 text-dark-500 px-6 md:px-0">
             <div className="max-w-[400px] text-center text-sm">
                 {footerDetail.address}
             </div>
