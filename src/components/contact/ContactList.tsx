@@ -8,6 +8,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { useLanguageStore } from '@/modules/store/language.store'
+import { useWindowSize } from 'usehooks-ts'
 
 const ContactList: FC = () => {
     const { Search } = Input
@@ -25,13 +26,15 @@ const ContactList: FC = () => {
         setContactDetailMax100,
     } = useContactListStore((state) => state)
     const { currentLang } = useLanguageStore((state) => state)
+    const { width } = useWindowSize()
+    const tabletScreen = width > 768
 
     const columns: ColumnsType<IContact> = [
         {
             title: headerColumnsLang.numeric,
             dataIndex: 'key',
             key: 'key',
-            width: '120px',
+            width: tabletScreen ? 100 : 80,
             render: (_, __, index) => (
                 <span>{(page - 1) * pageSize + index + 1}</span>
             ),
@@ -55,11 +58,13 @@ const ContactList: FC = () => {
             title: headerColumnsLang.age,
             dataIndex: 'age',
             key: 'age',
+            width: tabletScreen ? 'auto' : 80,
         },
         {
             title: headerColumnsLang.action.head,
             key: 'action',
             fixed: 'right',
+            width: 80,
             render: (_, record) => (
                 <Popconfirm
                     title={
@@ -101,7 +106,7 @@ const ContactList: FC = () => {
                             : 'ค้นหาด้วย ชื่อ-นามสกุล'
                     }
                     enterButton={currentLang === 'en' ? 'Enter' : 'ค้นหา'}
-                    style={{ width: 320 }}
+                    style={{ width: tabletScreen ? 320 : 'auto' }}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     onSearch={onSearching}
@@ -113,7 +118,7 @@ const ContactList: FC = () => {
                 rowKey={'key'}
                 dataSource={contactDetail}
                 columns={columns}
-                scroll={{ x: '100%', y: '50vh' }}
+                scroll={{ x: true, y: '50vh' }}
                 pagination={{
                     defaultCurrent: 1,
                     showSizeChanger: false,
