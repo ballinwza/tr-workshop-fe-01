@@ -14,7 +14,7 @@ const HomePage: FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     return (
-        <div className="flex flex-col gap-6">
+        <div className="w-full flex flex-col gap-6">
             <div className="flex flex-col gap-2">
                 <h2 className="font-bold text-lg">
                     {currentLang === 'en' ? 'Picture Profile' : 'รูปภาพโปรไฟล์'}

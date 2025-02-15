@@ -16,7 +16,7 @@ const AllPageLayout: FC<Props> = ({ children }: Props) => {
                 <Sidebar />
                 <div
                     className={
-                        `flex-grow px-4 py-8 max-w-[100vw] flex justify-end ` +
+                        `flex-grow px-4 py-8 w-full max-w-[100vw] flex justify-end ` +
                         `md:p-8 `
                     }
                     style={{

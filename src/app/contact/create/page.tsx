@@ -1,5 +1,9 @@
 import ContactForm from '@/components/contact/ContactForm'
 
 export default function CreateContactPage() {
-    return <ContactForm />
+    return (
+        <div className="w-full">
+            <ContactForm />
+        </div>
+    )
 }
