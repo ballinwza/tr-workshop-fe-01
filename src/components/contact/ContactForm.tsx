@@ -17,9 +17,9 @@ const ContactForm: FC = () => {
     const router = useRouter()
 
     useEffect(() => {
-        contactForm.validateFields()
-
-        return () => {}
+        if (contactForm) {
+            contactForm.validateFields()
+        }
     }, [formLang])
 
     const onFinish: FormProps<IContact>['onFinish'] = (values) => {

@@ -4,13 +4,15 @@ import { FC } from 'react'
 
 import { useSiderStore } from '@/modules/store/sidebar.store'
 import { usePathname } from 'next/navigation'
+import { useScreenSize } from '@/shared/helper/hooks/useScreenSize'
 
 const Sidebar: FC = () => {
     const { siderDetail, isVisible, toggleIsVisible } = useSiderStore(
         (state) => state,
     )
+    const { isTablet } = useScreenSize()
+
     const pathname = usePathname()
-    const tabletScreen = window.innerWidth >= 768
 
     return (
         <div
@@ -19,7 +21,7 @@ const Sidebar: FC = () => {
                 `md:top-0 md:relative md:justify-between `
             }
             style={
-                tabletScreen
+                isTablet
                     ? {
                           opacity: !isVisible ? 1 : 0,
                       }
@@ -33,7 +35,7 @@ const Sidebar: FC = () => {
             <Menu
                 className="flex-grow"
                 style={
-                    tabletScreen
+                    isTablet
                         ? {
                               width: !isVisible ? '200px' : 0,
                           }
@@ -48,7 +50,7 @@ const Sidebar: FC = () => {
                 theme="light"
                 items={siderDetail}
                 onClick={() => {
-                    if (!tabletScreen) toggleIsVisible()
+                    if (!isTablet) toggleIsVisible()
                 }}
             />
         </div>

@@ -4,6 +4,7 @@ import { useHeaderStore } from '@/modules/store/header.store'
 import { useLanguageStore } from '@/modules/store/language.store'
 import { useSiderStore } from '@/modules/store/sidebar.store'
 import { LanguageEnum } from '@/shared/enums/language.enum'
+import { useScreenSize } from '@/shared/helper/hooks/useScreenSize'
 import { MenuOutlined } from '@ant-design/icons'
 
 import Image from 'next/image'
@@ -12,7 +13,7 @@ import { FC, Fragment, useState } from 'react'
 
 const Headerbar: FC = () => {
     const { setCurrentLang } = useLanguageStore((state) => state)
-    const tabletScreen = window.innerWidth >= 768
+    const { isTablet } = useScreenSize()
 
     const { toggleIsVisible, isVisible } = useSiderStore((state) => state)
     const { headerDetail, profileImage, setProfileImage } = useHeaderStore(
@@ -21,7 +22,7 @@ const Headerbar: FC = () => {
     const [isModalOpen, setIsModalOpen] = useState<boolean>(false)
 
     const checkScreenSize = () => {
-        if (tabletScreen) {
+        if (isTablet) {
             return (
                 <Fragment>
                     <div className="flex gap-2">
