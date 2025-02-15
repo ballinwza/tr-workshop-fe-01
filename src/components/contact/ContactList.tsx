@@ -120,7 +120,7 @@ const ContactList: FC = () => {
                     isTablet
                         ? {
                               width: !isVisible
-                                  ? 'calc(100vw - 232px)'
+                                  ? 'calc(100vw - 264px)'
                                   : '100%',
                           }
                         : {
