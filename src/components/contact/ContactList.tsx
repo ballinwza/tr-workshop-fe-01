@@ -9,6 +9,7 @@ import { Input } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { useLanguageStore } from '@/modules/store/language.store'
 import { useScreenSize } from '@/shared/helper/hooks/useScreenSize'
+import { useSiderStore } from '@/modules/store/sidebar.store'
 
 const ContactList: FC = () => {
     const { Search } = Input
@@ -26,6 +27,7 @@ const ContactList: FC = () => {
         setContactDetailMax100,
     } = useContactListStore((state) => state)
     const { currentLang } = useLanguageStore((state) => state)
+    const { isVisible } = useSiderStore((state) => state)
     const { isTablet } = useScreenSize()
 
     const columns: ColumnsType<IContact> = [
@@ -93,7 +95,7 @@ const ContactList: FC = () => {
     }, [])
 
     return (
-        <div className="w-full">
+        <div>
             <div className="flex justify-end gap-6 mb-4">
                 <Button type="primary" onClick={() => setSearchValue('')}>
                     {currentLang === 'en' ? 'Clear' : 'ล้าง'}
@@ -113,22 +115,37 @@ const ContactList: FC = () => {
                 />
             </div>
 
-            <Table
-                rowKey={'key'}
-                dataSource={contactDetail}
-                columns={columns}
-                scroll={{ x: true, y: '50vh' }}
-                pagination={{
-                    defaultCurrent: 1,
-                    showSizeChanger: false,
-                    pageSize,
-                    current: page,
-                    onChange(page, pageSize) {
-                        setPage(page)
-                        setPageSize(pageSize)
-                    },
-                }}
-            />
+            <div
+                style={
+                    isTablet
+                        ? {
+                              width: !isVisible
+                                  ? 'calc(100vw - 232px)'
+                                  : '100%',
+                          }
+                        : {
+                              width: '100%',
+                          }
+                }
+                className="transition-all"
+            >
+                <Table
+                    rowKey={'key'}
+                    dataSource={contactDetail}
+                    columns={columns}
+                    scroll={{ x: '100%', y: '50vh' }}
+                    pagination={{
+                        defaultCurrent: 1,
+                        showSizeChanger: false,
+                        pageSize,
+                        current: page,
+                        onChange(page, pageSize) {
+                            setPage(page)
+                            setPageSize(pageSize)
+                        },
+                    }}
+                />
+            </div>
         </div>
     )
 }
