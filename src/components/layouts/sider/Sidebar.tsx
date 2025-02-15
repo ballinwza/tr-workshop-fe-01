@@ -24,6 +24,7 @@ const Sidebar: FC = () => {
                 isTablet
                     ? {
                           opacity: !isVisible ? 1 : 0,
+                          width: !isVisible ? '200px' : 0,
                       }
                     : {
                           display: isVisible ? 'flex' : 'none',
@@ -34,15 +35,6 @@ const Sidebar: FC = () => {
         >
             <Menu
                 className="flex-grow"
-                style={
-                    isTablet
-                        ? {
-                              width: !isVisible ? '200px' : 0,
-                          }
-                        : {
-                              width: '100%',
-                          }
-                }
                 defaultSelectedKeys={['/']}
                 selectedKeys={[pathname]}
                 defaultOpenKeys={['contact']}
