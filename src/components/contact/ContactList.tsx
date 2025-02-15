@@ -8,7 +8,7 @@ import { DeleteOutlined } from '@ant-design/icons'
 import { Input } from 'antd'
 import Highlighter from 'react-highlight-words'
 import { useLanguageStore } from '@/modules/store/language.store'
-import { useWindowSize } from 'usehooks-ts'
+import { useScreenSize } from '@/shared/helper/hooks/useScreenSize'
 
 const ContactList: FC = () => {
     const { Search } = Input
@@ -26,15 +26,14 @@ const ContactList: FC = () => {
         setContactDetailMax100,
     } = useContactListStore((state) => state)
     const { currentLang } = useLanguageStore((state) => state)
-    const { width } = useWindowSize()
-    const tabletScreen = width > 768
+    const { isTablet } = useScreenSize()
 
     const columns: ColumnsType<IContact> = [
         {
             title: headerColumnsLang.numeric,
             dataIndex: 'key',
             key: 'key',
-            width: tabletScreen ? 100 : 80,
+            width: isTablet ? 100 : 80,
             render: (_, __, index) => (
                 <span>{(page - 1) * pageSize + index + 1}</span>
             ),
@@ -58,7 +57,7 @@ const ContactList: FC = () => {
             title: headerColumnsLang.age,
             dataIndex: 'age',
             key: 'age',
-            width: tabletScreen ? 'auto' : 80,
+            width: isTablet ? 'auto' : 80,
         },
         {
             title: headerColumnsLang.action.head,
@@ -106,7 +105,7 @@ const ContactList: FC = () => {
                             : 'ค้นหาด้วย ชื่อ-นามสกุล'
                     }
                     enterButton={currentLang === 'en' ? 'Enter' : 'ค้นหา'}
-                    style={{ width: tabletScreen ? 320 : 'auto' }}
+                    style={{ width: isTablet ? 320 : 'auto' }}
                     value={searchValue}
                     onChange={(e) => setSearchValue(e.target.value)}
                     onSearch={onSearching}
